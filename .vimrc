@@ -33,8 +33,8 @@ set nobackup
 set showmatch   
 set matchtime=1 " the time of highlight matched bracket
 set tabstop=4   " width of tab-key
-set softtabstop=2
-set shiftwidth=2
+set softtabstop=4
+set shiftwidth=4
 set encoding=utf-8
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
@@ -87,13 +87,13 @@ map tl :+tabnext<CR>
 :inoremap ] <c-r>=ClosePair(']')<CR>
 :inoremap " ""<ESC>i
 :inoremap ' ''<ESC>i
-function! ClosePair(char)
+func! ClosePair(char)
     if getline('.')[col('.') - 1] == a:char
         return "\<Right>"
   	else
         return a:char
   	endif
-endfunction
+endfunc
 
 "compile and run
 map <LEADER>c :call CompileRunGcc()<CR>
@@ -273,7 +273,6 @@ func SetTitle()
         call append(line(".")+6, "# -*- coding:utf-8 -*-")
         call append(line(".")+7, "")
     else
-		
         call setline(1, "/*************************************************************************")
 		call append(line("."), "    > File Name: ".expand("%"))
 		call append(line(".")+1, "    > Author: Li Haipeng")
