@@ -33,12 +33,11 @@ set nobackup
 set showmatch   
 set matchtime=1 " the time of highlight matched bracket
 set tabstop=4   " width of tab-key
-set softtabstop=4
-set shiftwidth=4
+set softtabstop=2
+set shiftwidth=2
+set encoding=utf-8
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
-set encoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936   
 set fileencoding=utf-8
 set autochdir
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -55,62 +54,6 @@ endif
 " set ruler 
 " set gdefault    
 " set foldmethod=manual   
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" New File Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py exec ":call SetTitle()"
-func SetTitle()
-	if &filetype == 'sh'
-		call setline(1,"\#########################################################################")
-		call append(line("."), "\# File Name: ".expand("%"))
-		call append(line(".")+1, "\# Author: Li Haipeng")
-		call append(line(".")+2, "\# mail: lihaipeng_buaa@163.com")
-		call append(line(".")+3, "\# Created Time:".strftime("%c"))
-		call append(line(".")+4,"\#########################################################################")
-		call append(line(".")+5, "\#!/bin/bash")
-		call append(line(".")+6, "") 
-    elseif &filetype == 'python'
-        call setline(1,"#########################################################################")
-        call append(line("."), "# File Name: ".expand("%"))
-        call append(line(".")+1, "# Author: Li Haipeng")
-        call append(line(".")+2, "# mail: lihaipeng_buaa@163.com")
-        call append(line(".")+3, "# Created Time:".strftime("%c"))
-        call append(line(".")+4,"#########################################################################")
-        call append(line(".")+5, "#!/usr/bin/python")
-        call append(line(".")+6, "# -*- coding:utf-8 -*-")
-        call append(line(".")+7, "")
-    else
-		
-        call setline(1, "/*************************************************************************")
-		call append(line("."), "    > File Name: ".expand("%"))
-		call append(line(".")+1, "    > Author: Li Haipeng")
-		call append(line(".")+2, "    > Mail: lihaipeng_buaa@163.com ")
-		call append(line(".")+3, "    > Created Time: ".strftime("%c"))
-		call append(line(".")+4," ************************************************************************/")
-		call append(line(".")+5, "") 
-	endif
-	if &filetype == 'cpp'
-		call append(line(".")+6, "#include <iostream>")
-		call append(line(".")+7, "")
-		call append(line(".")+8, "using namespace std;")
-		call append(line(".")+9, "")
-		call append(line(".")+10, "int main(void){")
-		call append(line(".")+11, "")
-		call append(line(".")+12, "    return 0;")
-		call append(line(".")+13, "}")
-	endif
-	if &filetype == 'c'
-		call append(line(".")+6, "#include <stdio.h>")
-		call append(line(".")+7, "")
-		call append(line(".")+8, "int main(void){")
-		call append(line(".")+9, "")
-		call append(line(".")+10,"  return 0;")
-		call append(line(".")+11, "}")
-	endif
-    " After creating a new file, automatically locate to the end of the file
-	autocmd BufNewFile *normal G
-endfunc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut Key Settings
@@ -135,6 +78,22 @@ map sh <C-w>t<C-w>K " switch from left/right split screen to above/below split s
 map tb :tabe<CR>
 map th :-tabnext<CR>
 map tl :+tabnext<CR>
+
+:inoremap ( ()<ESC>i
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap { {<CR>}<ESC>O
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap [ []<ESC>i
+:inoremap ] <c-r>=ClosePair(']')<CR>
+:inoremap " ""<ESC>i
+:inoremap ' ''<ESC>i
+function! ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+  	else
+        return a:char
+  	endif
+endfunction
 
 "compile and run
 map <LEADER>c :call CompileRunGcc()<CR>
@@ -289,6 +248,59 @@ let g:indent_guides_color_change_percent = 1
 silent! unmap <LEADER>ig
 autocmd WinEnter * silent! unmap <LEADER>ig
 
-
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" New File Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py exec ":call SetTitle()"
+func SetTitle()
+	if &filetype == 'sh'
+		call setline(1,"\#########################################################################")
+		call append(line("."), "\# File Name: ".expand("%"))
+		call append(line(".")+1, "\# Author: Li Haipeng")
+		call append(line(".")+2, "\# mail: lihaipeng_buaa@163.com")
+		call append(line(".")+3, "\# Created Time:".strftime("%c"))
+		call append(line(".")+4,"\#########################################################################")
+		call append(line(".")+5, "\#!/bin/bash")
+		call append(line(".")+6, "") 
+    elseif &filetype == 'python'
+        call setline(1,"#########################################################################")
+        call append(line("."), "# File Name: ".expand("%"))
+        call append(line(".")+1, "# Author: Li Haipeng")
+        call append(line(".")+2, "# mail: lihaipeng_buaa@163.com")
+        call append(line(".")+3, "# Created Time:".strftime("%c"))
+        call append(line(".")+4,"#########################################################################")
+        call append(line(".")+5, "#!/usr/bin/python")
+        call append(line(".")+6, "# -*- coding:utf-8 -*-")
+        call append(line(".")+7, "")
+    else
+		
+        call setline(1, "/*************************************************************************")
+		call append(line("."), "    > File Name: ".expand("%"))
+		call append(line(".")+1, "    > Author: Li Haipeng")
+		call append(line(".")+2, "    > Mail: lihaipeng_buaa@163.com ")
+		call append(line(".")+3, "    > Created Time: ".strftime("%c"))
+		call append(line(".")+4," ************************************************************************/")
+		call append(line(".")+5, "") 
+	endif
+	if &filetype == 'cpp'
+		call append(line(".")+6, "#include <iostream>")
+		call append(line(".")+7, "")
+		call append(line(".")+8, "using namespace std;")
+		call append(line(".")+9, "")
+		call append(line(".")+10, "int main(void){")
+		call append(line(".")+11, "")
+		call append(line(".")+12, "    return 0;")
+		call append(line(".")+13, "}")
+	endif
+	if &filetype == 'c'
+		call append(line(".")+6, "#include <stdio.h>")
+		call append(line(".")+7, "")
+		call append(line(".")+8, "int main(void){")
+		call append(line(".")+9, "")
+		call append(line(".")+10,"  return 0;")
+		call append(line(".")+11, "}")
+	endif
+    " After creating a new file, automatically locate to the end of the file
+	autocmd BufNewFile *normal G
+endfunc
 
