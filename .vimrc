@@ -281,25 +281,25 @@ func SetTitle()
         call append(line(".")+4," ************************************************************************/")
         call append(line(".")+5, "") 
 	endif
-	if &filetype == 'cpp'
-		call append(line(".")+6, "#include <iostream>")
-		call append(line(".")+7, "")
-		call append(line(".")+8, "using namespace std;")
-		call append(line(".")+9, "")
-		call append(line(".")+10, "int main(void){")
-		call append(line(".")+11, "")
-		call append(line(".")+12, "    return 0;")
-		call append(line(".")+13, "}")
-	endif
-	if &filetype == 'c'
-		call append(line(".")+6, "#include <stdio.h>")
-		call append(line(".")+7, "")
-		call append(line(".")+8, "int main(void){")
-		call append(line(".")+9, "")
-		call append(line(".")+10,"  return 0;")
-		call append(line(".")+11, "}")
-	endif
+    if &filetype == 'cpp'
+        call append(line(".")+6, "#include <iostream>")
+        call append(line(".")+7, "")
+        call append(line(".")+8, "using namespace std;")
+        call append(line(".")+9, "")
+        call append(line(".")+10, "int main(void){")
+        call append(line(".")+11, "")
+        call append(line(".")+12, "    return 0;")
+        call append(line(".")+13, "}")
+    endif
+    if &filetype == 'c'
+        call append(line(".")+6, "#include <stdio.h>")
+        call append(line(".")+7, "")
+        call append(line(".")+8, "int main(void){")
+        call append(line(".")+9, "")
+        call append(line(".")+10,"  return 0;")
+        call append(line(".")+11, "}")
+    endif
     " After creating a new file, automatically locate to the end of the file
-	autocmd BufNewFile *normal G
+    autocmd BufNewFile *normal G
 endfunc
 
