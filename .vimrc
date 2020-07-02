@@ -90,9 +90,9 @@ map tl :+tabnext<CR>
 func! ClosePair(char)
     if getline('.')[col('.') - 1] == a:char
         return "\<Right>"
-  	else
+    else
         return a:char
-  	endif
+    endif
 endfunc
 
 "compile and run
@@ -253,15 +253,15 @@ autocmd WinEnter * silent! unmap <LEADER>ig
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py exec ":call SetTitle()"
 func SetTitle()
-	if &filetype == 'sh'
-		call setline(1,"\#########################################################################")
-		call append(line("."), "\# File Name: ".expand("%"))
-		call append(line(".")+1, "\# Author: Li Haipeng")
-		call append(line(".")+2, "\# mail: lihaipeng_buaa@163.com")
-		call append(line(".")+3, "\# Created Time:".strftime("%c"))
-		call append(line(".")+4,"\#########################################################################")
-		call append(line(".")+5, "\#!/bin/bash")
-		call append(line(".")+6, "") 
+    if &filetype == 'sh'
+        call setline(1,"\#########################################################################")
+        call append(line("."), "\# File Name: ".expand("%"))
+        call append(line(".")+1, "\# Author: Li Haipeng")
+        call append(line(".")+2, "\# mail: lihaipeng_buaa@163.com")
+        call append(line(".")+3, "\# Created Time:".strftime("%c"))
+        call append(line(".")+4,"\#########################################################################")
+        call append(line(".")+5, "\#!/bin/bash")
+        call append(line(".")+6, "") 
     elseif &filetype == 'python'
         call setline(1,"#########################################################################")
         call append(line("."), "# File Name: ".expand("%"))
@@ -274,12 +274,12 @@ func SetTitle()
         call append(line(".")+7, "")
     else
         call setline(1, "/*************************************************************************")
-		call append(line("."), "    > File Name: ".expand("%"))
-		call append(line(".")+1, "    > Author: Li Haipeng")
-		call append(line(".")+2, "    > Mail: lihaipeng_buaa@163.com ")
-		call append(line(".")+3, "    > Created Time: ".strftime("%c"))
-		call append(line(".")+4," ************************************************************************/")
-		call append(line(".")+5, "") 
+        call append(line("."), "    > File Name: ".expand("%"))
+        call append(line(".")+1, "    > Author: Li Haipeng")
+        call append(line(".")+2, "    > Mail: lihaipeng_buaa@163.com ")
+        call append(line(".")+3, "    > Created Time: ".strftime("%c"))
+        call append(line(".")+4," ************************************************************************/")
+        call append(line(".")+5, "") 
 	endif
 	if &filetype == 'cpp'
 		call append(line(".")+6, "#include <iostream>")
